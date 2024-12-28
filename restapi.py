@@ -5,10 +5,8 @@ import uvicorn
 from db import *
 from datetime import datetime
 
-# FastAPI app
 app = FastAPI()
 
-# Enterprise Endpoints
 @app.post("/enterprises/")
 def create_enterprise(enterprise: EnterpriseModel):
     db = get_db()
