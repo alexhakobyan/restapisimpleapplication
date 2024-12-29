@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import join, func
+from sqlalchemy import join, func, text
 import uvicorn
 from db import *
 from datetime import datetime
@@ -103,10 +103,18 @@ def get_expired_products():
     expired_products = db.query(Product).filter(Product.shelf_life < today).all()
     return expired_products
 
+
+@app.get("/products_not_expired")
+def get_not_expired_products():
+    db = get_db()
+    today = datetime.now().date()
+    not_expired_products = db.query(Product).filter(Product.shelf_life > today).all()
+    return not_expired_products  
+
+
 @app.get("/high_brand_enterprise")
 def get_high_brand_enterprise(price: int):
     db = get_db()
-
     joined = join(Supply,Enterprise, Supply.enterprise_id == Enterprise.id)
     enterprises = (
         db.query(Enterprise)
@@ -152,6 +160,19 @@ def get_enterprises_with_more_products(supply_count: int):
 
     enterprises = [{"enterprise": enterprise, "product_count": product_count} for enterprise, product_count in result]
     return enterprises
+
+
+@app.get("/products_search")
+def search_products(regex: str = Query(...)):
+    db = get_db()
+    query = text("""
+        SELECT * FROM product
+        WHERE data->>'description' ~* :regex
+    """)
+    result = db.execute(query, {"regex": regex}).fetchall()
+    return [dict(row) for row in result]
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

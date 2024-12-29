@@ -33,6 +33,7 @@ def populate_database():
     ]
     db.add_all(products)
     db.commit()
+    
 
     supplies = [
         Supply(enterprise_id=1, product_id=1, date=datetime(2023, 12, 1).date(), volume=20.0, selling_price=120.00),
