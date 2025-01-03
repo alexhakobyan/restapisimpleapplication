@@ -5,17 +5,17 @@ def populate_database():
     db = get_db()
 
     enterprises = [
-        Enterprise(name="Alpha Corp", activity_type="Manufacturing", employees_count=150),
-        Enterprise(name="Beta LLC", activity_type="Retail", employees_count=80),
-        Enterprise(name="Gamma Industries", activity_type="IT", employees_count=200),
-        Enterprise(name="Delta Co.", activity_type="Manufacturing", employees_count=300),
-        Enterprise(name="Epsilon Ltd", activity_type="Retail", employees_count=50),
-        Enterprise(name="Zeta Group", activity_type="IT", employees_count=120),
-        Enterprise(name="Eta Solutions", activity_type="Manufacturing", employees_count=90),
-        Enterprise(name="Theta Inc", activity_type="Retail", employees_count=70),
-        Enterprise(name="Iota Systems", activity_type="IT", employees_count=110),
-        Enterprise(name="Kappa Enterprises", activity_type="Manufacturing", employees_count=250),
-    ]
+        Enterprise(name="AlphaCorp", activity_type="Manufacturing", employees_count=150, searchable_data="{\"name\":\"AlphaCorp\", \"activity_type\":\"Manufacturing\""),
+        Enterprise(name="BetaLLC", activity_type="Retail", employees_count=80, searchable_data="{\"name\":\"BetaLLC\", \"activity_type\":\"Retail\""),
+        Enterprise(name="GammaIndustries", activity_type="IT", employees_count=200, searchable_data="{\"name\":\"GammaIndustries\", \"activity_type\":\"IT\""),
+        Enterprise(name="DeltaCo.", activity_type="Manufacturing", employees_count=300, searchable_data="{\"name\":\"DeltaCo.\", \"activity_type\":\"Manufacturing\""),
+        Enterprise(name="EpsilonLtd", activity_type="Retail", employees_count=50, searchable_data="{\"name\":\"EpsilonLtd\", \"activity_type\":\"Retail\""),
+        Enterprise(name="ZetaGroup", activity_type="IT", employees_count=120, searchable_data="{\"name\":\"ZetaGroup\", \"activity_type\":\"IT\""),
+        Enterprise(name="EtaSolutions", activity_type="Manufacturing", employees_count=90, searchable_data="{\"name\":\"EtaSolutions\", \"activity_type\":\"Manufacturing\""),
+        Enterprise(name="ThetaInc", activity_type="Retail", employees_count=70, searchable_data="{\"name\":\"ThetaInc\", \"activity_type\":\"Retail\""),
+        Enterprise(name="IotaSystems", activity_type="IT", employees_count=110, searchable_data="{\"name\":\"IotaSystems\", \"activity_type\":\"IT\""),
+        Enterprise(name="KappaEnterprises", activity_type="Manufacturing", employees_count=250, searchable_data="{\"name\":\"KappaEnterprises\", \"activity_type\":\"Manufacturing\"")
+]
     db.add_all(enterprises)
     db.commit()
 
@@ -50,6 +50,8 @@ def populate_database():
 
     db.add_all(supplies)
     db.commit()
+
+
 
 if __name__ == "__main__":
     populate_database()

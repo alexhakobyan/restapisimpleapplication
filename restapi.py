@@ -161,16 +161,12 @@ def get_enterprises_with_more_products(supply_count: int):
     enterprises = [{"enterprise": enterprise, "product_count": product_count} for enterprise, product_count in result]
     return enterprises
 
-
-@app.get("/products_search")
-def search_products(regex: str = Query(...)):
+@app.get("/search/")
+def search(query: str):
     db = get_db()
-    query = text("""
-        SELECT * FROM product
-        WHERE data->>'description' ~* :regex
-    """)
-    result = db.execute(query, {"regex": regex}).fetchall()
-    return [dict(row) for row in result]
+    results = db.execute(text("SELECT id FROM enterprises WHERE searchable_data LIKE " + query)).fetchall()
+    return {"results": [row[0] for row in results]}
+
 
 
 

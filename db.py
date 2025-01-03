@@ -12,7 +12,7 @@ class Enterprise(Base):
     name = Column(String, nullable=False)
     activity_type = Column(String, nullable=False)  
     employees_count = Column(Integer, nullable=False)  
-
+    searchable_data = Column(String, nullable=False)
     supplies = relationship('Supply', back_populates='enterprise')
 
 class EnterpriseModel(BaseModel):
